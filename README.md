@@ -12,6 +12,15 @@ Card list should separate legendary creatures and regular cards with an empty li
 7. `cmake --build .`
 
 # Usage
+Make sure the input card list has legendary creatures and regular cards separated by an empty space!
+By default the program will read in a file `input.txt` and output `output.txt` by just running the
+program alone.
+
+```
+./boosterise
+```
+
+Here are the parameters that can be played around with
 ```
 Usage: Boosteriser [--help] [--version] [--legendaries VAR] [--main VAR] [--players VAR] [--boosters VAR] [--nodupes] [--input VAR] [--output VAR]
 
@@ -25,4 +34,11 @@ Optional arguments:
   --nodupes          Do not allow duplicates into draft 
   -i, --input        Name of input file [default: "input.txt"]
   -o, --output       Name of output file [default: "output.txt"]
+```
+
+Example: You want to create boosters for 3 players, 2 boosters each, each booster should have 5 legendaries and 15
+regular cards:
+
+```
+./boosterise -p 3 -b 2 -l 5 -m 15
 ```
