@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
   try {
-    argparse::ArgumentParser program("Boosteriser");
+    argparse::ArgumentParser program("boosterise");
 
     program.add_argument("-l", "--legendaries")
         .default_value(4)
