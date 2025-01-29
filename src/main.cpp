@@ -71,6 +71,8 @@ int main(int argc, char *argv[]) {
     cards.makeBoosters(numLegendaries, numRest, numPlayers, boostersPerPlayer,
                        noDupes, program.get<std::string>("output"));
 
+    std::cout << "YOU HAVE BEEN BOOSTERISED B)" << std::endl;
+
   } catch (const std::exception &e) {
     std::cerr << "Error: " << e.what() << "\n";
     return 1;
