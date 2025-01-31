@@ -1,7 +1,9 @@
 #include "card_list.h"
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <random>
+#include <sstream>
 #include <stdexcept>
 #include <vector>
 
@@ -26,11 +28,22 @@ CardList CardList::readFile(const std::string &filename) {
     }
 
     std::string lineCopy = line;
+    std::istringstream iss(lineCopy);
+    int count;
+    std::string text;
 
-    if (legendaries) {
-      cards.legendaries.push_back(lineCopy);
-    } else {
-      cards.rest.push_back(lineCopy);
+    if (iss >> count >> text) {
+      // std::cout << "There are " << count << " copies of " << text <<
+      // std::endl;
+      if (legendaries) {
+        for (int i = 0; i < count; i++) {
+          cards.legendaries.push_back(text);
+        }
+      } else {
+        for (int i = 0; i < count; i++) {
+          cards.rest.push_back(text);
+        }
+      }
     }
   }
   file.close();
@@ -67,13 +80,24 @@ void CardList::makeBoosters(int numLegendaries, int numRest, int numPlayers,
       outRest.push_back(getRandomRest(restCopy, noDupes));
     }
 
-    // Write to file
-    for (const auto &line : outLeg) {
-      output << line << std::endl;
+    // Count number of occurences
+    std::map<std::string, int> legCounts;
+    std::map<std::string, int> restCounts;
+    for (const auto &str : outLeg) {
+      legCounts[str]++;
     }
 
-    for (const auto &line : outRest) {
-      output << line << std::endl;
+    for (const auto &str : outRest) {
+      restCounts[str]++;
+    }
+
+    // Write to file
+    for (const auto &line : legCounts) {
+      output << line.second << " " << line.first << std::endl;
+    }
+
+    for (const auto &line : restCounts) {
+      output << line.second << " " << line.first << std::endl;
     }
 
     if (i != numBoosters - 1) {
